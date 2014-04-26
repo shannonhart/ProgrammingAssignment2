@@ -1,15 +1,33 @@
-## Put comments here that give an overall description of what your
-## functions do
 
-## Write a short comment describing this function
+## This function creates a special "matrix" object that is passed into the parent envriorment
+##and the inverse of the matrix is also passed into the parent environment.
+## I am assuming that the matrix supplied is always invertible and not yet cached
 
 makeCacheMatrix <- function(x = matrix()) {
-
+      cachedMatrix <- NULL
+      
+      ## create 'set' function to cache the input matrix variable
+      set <- function(y) {
+          x <<- y
+          m <<- NULL
+      }  
+      ## create 'get' function to solve() the input matrix variable
+      get <- solve(x)
+      
+      ## create and return a list of sub functions
+      list(set = set, 
+           get = get)
+      
+      ## newcachedmatrix<-makeCacheMatrix
+      ## assigning this cached matrix to "newcachedmatrix" for clarity
 }
 
-
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+## This function retrieves the inverse of the input matrix variable
+cacheSolve <- function(x) makeCachMatrix$get(x)
+  
 }
+
+      
+
+
+
